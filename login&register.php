@@ -20,10 +20,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="wrapper">
-        <div class="form-wrapper sign-up">
-
-            <?php
+<?php
              if (isset($_POST["submit"])) {
                 $name = $_POST["name"];
                 $email = $_POST["email"];
@@ -83,6 +80,10 @@
                 }
              }
             ?>
+    <div class="wrapper">
+        <div class="form-wrapper sign-up">
+
+            
             <form action="login&register.php" method="post" id="registerstu">
                 <h2>Sign Up</h2>
                 <div class="input-group">

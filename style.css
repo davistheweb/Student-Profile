@@ -136,6 +136,7 @@ h2 {
 }
 
 .input-group input:focus~label,
+.input-group input:valid~label,
 .input-group input label {
     top: 0;
     font-size: 12px;
@@ -203,12 +204,12 @@ h2 {
 
 .alert {
     display: flex;
-    margin-top: 28rem;
+    margin-top: -35rem;
+    position: absolute;
     text-align: center;
-   width: 10vh;
+   
     height: 5vh;
     font-size: 10px;
-    position: absolute;
     background-color: #12ddee;
     border: none;
 }
