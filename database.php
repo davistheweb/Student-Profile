@@ -1,11 +1,14 @@
 <?php
 
-$hostName ="localhost";
+$hostName = "localhost";
 $dbUser = "root";
-$dbPassword ="";
+$dbPassword = "";
 $dbName = "login_student";
+
 $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
 if (!$conn) {
-    die("Something went wrong;");
+    die("Connection failed: " . mysqli_connect_error());
 }
+
+return $conn;
 ?>

@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
+::-webkit-scrollbar {
+    background-color: #333;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -13,13 +17,14 @@ body {
     align-items: center;
     min-height: 100vh;
     background: #333;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .wrapper {
     position: relative;
-    width: 400px;
-    height: 500px;
+    width: 500px;
+    height: 600px;
 }
 
 
@@ -108,7 +113,7 @@ h2 {
 .input-group {
     position: relative;
     width: 320px;
-    margin: 30px 0;
+    margin: 10px 0;
 }
 
 .input-group label {
@@ -141,6 +146,15 @@ h2 {
     top: 0;
     font-size: 12px;
     background: #12ddee;
+}
+
+form .input-group .h-password{
+   
+   position: absolute;
+   right: 3%;
+   top: 15%;
+   cursor: pointer;
+   
 }
 
 .forgot-pass {
@@ -205,6 +219,7 @@ h2 {
 .alert {
     display: flex;
     margin-top: -35rem;
+    margin-right: -50rem;
     position: absolute;
     text-align: center;
    

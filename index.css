@@ -4,6 +4,18 @@
     box-sizing: border-box;
 }
 
+.student-header {
+    display: flex;
+    
+    padding: 0 3%;
+}
+
+.student-nav {
+    justify-content: space-between;
+    display: flex;
+}
+
+
 .welcome-student {
     text-align: center;
     color: #fff;
@@ -55,6 +67,8 @@
 
 .img-radius {
     border-radius: 5px;
+    width: 140px;
+    height: 130px;
 }
 
 

@@ -1,6 +1,6 @@
 <?php
     session_start();
-   if(isset($_SESSION["student"]) && isset ($_SESSION['full_name'])) {
+   if(isset($_SESSION["student"]) && isset ($_SESSION['id'])) {
     header("Location: index.php");
     exit();
    }
@@ -18,20 +18,31 @@
      rel="stylesheet" 
      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
      crossorigin="anonymous">
+     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<?php
+    <div class="wrapper">
+        <div class="form-wrapper sign-up">
+
+            
+            <form action="login&register.php" method="post" id="register">
+            <h2>Sign Up</h2>
+            <?php
              if (isset($_POST["submit"])) {
                 $name = $_POST["name"];
                 $email = $_POST["email"];
+                $field = $_POST["field"];
+                $math = $_POST["matric"];
+                $fal = $_POST["fal"];
+                $dept = $_POST["dept"];
                 $password = $_POST["password"];
                 $confirmPassword = $_POST["confirm_password"];
 
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
                 $errors = array();
-                if (empty($name) OR empty($email) OR empty($password) OR empty($confirmPassword)) {
+                if (empty($name) OR empty($email) OR empty($field) OR empty($math) OR empty($fal) OR empty($dept) OR empty($password) OR empty($confirmPassword)) {
                     array_push($errors, "Field Cannot Be Empty");
                 }
 
@@ -41,6 +52,14 @@
 
                 if (strlen($password)<8) {
                     array_push($errors, "Password must be at least, more than 8 characters");
+                }
+
+                if ( ! preg_match("/[a-z]/i", $password)) {
+                    array_push($errors, "Password must contain on letter");
+                }
+
+                if ( ! preg_match ("/[0-9]/", $password)) {
+                    array_push($errors, "Password must contain digits");
                 }
 
                 if ($password!==$confirmPassword) {
@@ -66,11 +85,11 @@
                     //insert data in database
 
                     
-                    $sql = "INSERT INTO students (full_name, email, password) VALUES (?, ?, ?)";
+                    $sql = "INSERT INTO students (full_name, email, field, math, fal, dept, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);
                     $prepareState = mysqli_stmt_prepare($stmt, $sql);
                     if ($prepareState) {
-                        mysqli_stmt_bind_param($stmt, "sss",$name, $email, $passwordHash);
+                        mysqli_stmt_bind_param($stmt, "sssssss",$name, $email, $field, $math, $fal, $dept, $passwordHash);
                         mysqli_stmt_execute($stmt);
                         echo "<div class= 'alert alert-success'>Registration successful.</div>";
                     }
@@ -81,12 +100,7 @@
                 }
              }
             ?>
-    <div class="wrapper">
-        <div class="form-wrapper sign-up">
-
-            
-            <form action="login&register.php" method="post" id="registerstu">
-                <h2>Sign Up</h2>
+                
                 <div class="input-group">
                     <input type="text" name="name" required>
                     <label>Name</label>
@@ -96,11 +110,28 @@
                     <label>Email</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="password" required>
+                    <input type="text" name="field" required>
+                    <label>Field, Eg:Master deg</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="matric" required>
+                    <label>Matric.No</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="fal" required>
+                    <label>Falculty</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="dept" required>
+                    <label>Department</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" id="password" required>
+                    <i class="ri-eye-line h-password" id="show-password"></i>
                     <label>Password</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="confirm_password" required>
+                    <input type="password" name="confirm_password" id="password" required>
                     <label>Confirm Password</label>
                 </div>
                 <input type="submit" name="submit" value="Sign Up" class="submit-btn">
@@ -110,7 +141,12 @@
             </form>
         </div>
         <div class="form-wrapper sign-in">
-        <?php 
+        
+            <form action="login&register.php" method="post">
+                <h2>Login</h2>
+                <?php 
+            $is_invalid = false;
+
             if (isset($_POST["login"])) {
                 $email = $_POST["email"];
                 $password = $_POST["password"]; 
@@ -122,7 +158,8 @@
                 if ($user) {
                     if (password_verify($password, $user["password"])) {
                         session_start();
-                        $_SESSION["student"] = "yes";
+                        session_regenerate_id();
+                        $_SESSION["student"] = $user["id"];
                         header("Location: index.php");
                         die();
                     } else {
@@ -133,22 +170,27 @@
                 else {
                     echo"<p class='alert alert danger'>Email does not exist</p>";
                 }
+
+                $is_invalid = true;
             }
         ?>
-            <form action="login&register.php" method="post">
-                <h2>Login</h2>
+                <?php if ($is_invalid): ?>
+                    <em>Invalid Login</em>
+                    <?php endif; ?>
+
                 <div class="input-group">
-                    <input type="email" name="email">
+                    <input type="email" name="email" required>
                     <label for="">Email</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="password">
+                    <input type="password" name="password" id="loginpassword" required>
+                    <i class="ri-eye-line h-password" id="showloginpassword"></i>
                     <label for="">Password</label>
                 </div>
                 <div class="forgot-pass">
                     <a href="#">Forgot Password?</a>
                 </div>
-                <input type="submit" class="submit-btn" value="Login" name="login">
+                <input type="submit" class="submit-btn" value="Continue" name="login">
                 <div class="sign-link">
                     <p>Don't have an account? <a class="signUp-link">Sign Up</a></p>
                 </div>
@@ -176,7 +218,45 @@
     });
 });
 
+const password = document.getElementById('password');
+const showPassword = document.getElementById('show-password').addEventListener
+
+('click', function() {
+    isPasswordVisible = !isPasswordVisible;
+    if (isPasswordVisible) {
+        if(password.type == "password") {
+            password.type = "text";
+        }
+        showPassword.innerHTML = '<i class="ri-eye-off-line"></i>';
+    } else {
+        
+        password.type = "password"
+        showPassword.innerHTML ='<i class="ri-eye-line"></i>';
+    }
+});
+
+let isPasswordVisible = false;
+
+const loginpassword = document.getElementById('loginpassword');
+const showLoginPassword = document.getElementById('showloginpassword').addEventListener
+
+('click', function() {
+    isLoginPasswordVisible = !isLoginPasswordVisible;
+    if (isLoginPasswordVisible) {
+        if(password.type == "password") {
+            password.type = "text";
+        }
+        showLoginPassword.innerHTML = '<i class="ri-eye-off-line"></i>';
+    } else {
+        
+        password.type = "password"
+        showLoginPassword.innerHTML ='<i class="ri-eye-line"></i>';
+    }
+});
+
+let isLoginPasswordVisible = false;
     </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
     crossorigin="anonymous"></script>
