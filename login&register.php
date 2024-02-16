@@ -1,7 +1,8 @@
 <?php
     session_start();
-   if(isset($_SESSION["student"])) {
+   if(isset($_SESSION["student"]) && isset ($_SESSION['full_name'])) {
     header("Location: index.php");
+    exit();
    }
 ?>
 

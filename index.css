@@ -4,8 +4,14 @@
     box-sizing: border-box;
 }
 
+.welcome-student {
+    text-align: center;
+    color: #fff;
+    padding-top: 1rem;
+}
+
 .padding {
-    padding: 3rem !important
+    padding: 3rem !important;
 }
 
 .user-card-full {
