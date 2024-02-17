@@ -85,7 +85,7 @@ if ($user = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                                     <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Falculty</p>
+                                            <p class="m-b-10 f-w-600">Faculty</p>
                                             <h6 class="text-muted f-w-400"><?= htmlspecialchars($user["fal"]);?></h6>
                                         </div>
                                         <div class="col-sm-6">
