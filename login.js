@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+ //Because Script Wasn't working, So i had to put the SCript here
+
+ document.addEventListener('DOMContentLoaded', function() {
     const wrapper = document.querySelector('.wrapper');
     const signUpLink = document.querySelector('.signUp-link');
     const signInLink = document.querySelector('.signIn-link');
@@ -15,3 +17,37 @@ document.addEventListener('DOMContentLoaded', function() {
         wrapper.classList.remove('animate-signIn');
     });
 });
+
+
+
+const loginPassword = document.getElementById('login-password');
+const password = document.getElementById('password');
+const confirmPassword = document.getElementById('confirm-password');
+const showLoginPasswordIcon = document.getElementById('show-login-password');
+const showPasswordIcon = document.getElementById('show-password');
+const showConfirmPasswordIcon = document.getElementById('show-confirm-password');
+
+showLoginPasswordIcon.addEventListener('click', toggleLoginPasswordVisibility);
+showPasswordIcon.addEventListener('click', togglePasswordVisibility);
+showConfirmPasswordIcon.addEventListener('click', toggleConfirmPasswordVisibility);
+
+let isLoginPasswordVisible = false;
+let isPasswordVisible = false;
+let isConfirmPasswordVisible = false;
+
+function toggleLoginPasswordVisibility() {
+    isLoginPasswordVisible = !isLoginPasswordVisible;
+    loginPassword.type = isLoginPasswordVisible ? "text" : "password";
+    showLoginPasswordIcon.className = isLoginPasswordVisible ? "ri-eye-off-line h-password" : "ri-eye-line h-password";
+}
+function togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    password.type = isPasswordVisible ? "text" : "password";
+    showPasswordIcon.className = isPasswordVisible ? "ri-eye-off-line h-password" : "ri-eye-line h-password";
+}
+
+function toggleConfirmPasswordVisibility() {
+    isConfirmPasswordVisible = !isConfirmPasswordVisible;
+    confirmPassword.type = isConfirmPasswordVisible ? "text" : "password";
+    showConfirmPasswordIcon.className = isConfirmPasswordVisible ? "ri-eye-off-line h-password" : "ri-eye-line h-password";
+}

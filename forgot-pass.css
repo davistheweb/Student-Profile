@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+::-webkit-scrollbar {
+    background-color: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #333;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.wrapper {
+    position: relative;
+    width: 500px;
+    height: 600px;
+}
+
+
+.form-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 50%;
+    background: #12ddee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+h2 {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
+
+.input-group {
+    position: relative;
+    width: 320px;
+    margin: 10px 0;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #333;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+
+.input-group input {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    color: #333;
+    padding: 0 10px;
+    background: transparent;
+    border: 1px solid #333;
+    outline: none;
+}
+
+.input-group input:focus~label,
+.input-group input:valid~label,
+.input-group input label {
+    top: 0;
+    font-size: 12px;
+    background: #12ddee;
+}
+
+button {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to right, #12ddee, #333);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}

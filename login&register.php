@@ -133,9 +133,11 @@
                     <label>Password</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="confirm_password" id="password" required>
+                    <input type="password" name="confirm_password" id="confirm-password" required>
+                    <i class="ri-eye-line h-password" id="show-confirm-password"></i>
                     <label>Confirm Password</label>
                 </div>
+                
                 <input type="submit" name="submit" value="Sign Up" class="submit-btn">
                 <div class="sign-link">
                     <p>Already have an account? <a class="signIn-link">Sign In</a></p>
@@ -185,12 +187,12 @@
                     <label for="">Email</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="password" id="loginpassword" required>
-                    <i class="ri-eye-line h-password" id="showloginpassword"></i>
+                    <input type="password" name="password" id="login-password" required>
+                    <i class="ri-eye-line h-password" id="show-login-password"></i>
                     <label for="">Password</label>
                 </div>
                 <div class="forgot-pass">
-                    <a href="#">Forgot Password?</a>
+                    <a href="forgot-pass.php">Forgot Password?</a>
                 </div>
                 <input type="submit" class="submit-btn" value="Continue" name="login">
                 <div class="sign-link">
@@ -199,66 +201,8 @@
             </form>
         </div>
     </div>
-    <script>
-        //Because Script Wasn't working, So i had to put the SCript here
 
-        document.addEventListener('DOMContentLoaded', function() {
-    const wrapper = document.querySelector('.wrapper');
-    const signUpLink = document.querySelector('.signUp-link');
-    const signInLink = document.querySelector('.signIn-link');
-
-    signUpLink.addEventListener('click', () => {
-        console.log('Sign Up link clicked');
-        wrapper.classList.add('animate-signIn');
-        wrapper.classList.remove('animate-signUp');
-    });
-
-    signInLink.addEventListener('click', () => {
-        console.log('Sign In link clicked');
-        wrapper.classList.add('animate-signUp');
-        wrapper.classList.remove('animate-signIn');
-    });
-});
-
-const password = document.getElementById('password');
-const showPassword = document.getElementById('show-password').addEventListener
-
-('click', function() {
-    isPasswordVisible = !isPasswordVisible;
-    if (isPasswordVisible) {
-        if(password.type == "password") {
-            password.type = "text";
-        }
-        showPassword.innerHTML = '<i class="ri-eye-off-line"></i>';
-    } else {
-        
-        password.type = "password";
-        showPassword.innerHTML ='';
-    }
-});
-
- let isPasswordVisible = false;
-/*
-const loginpassword = document.getElementById('loginpassword');
-const showLoginPassword = document.getElementById('showloginpassword').addEventListener
-
-('click', function() {
-    isLoginPasswordVisible = !isLoginPasswordVisible;
-    if (isLoginPasswordVisible) {
-        if(password.type == "password") {
-            password.type = "text";
-        }
-        showLoginPassword.innerHTML = '<i class="ri-eye-off-line"></i>';
-    } else {
-        
-        password.type = "password"
-        showLoginPassword.innerHTML ='<i class="ri-eye-line"></i>';
-    }
-});
-
-let isLoginPasswordVisible = false; */
-    </script>
-    
+    <script src="login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
     crossorigin="anonymous"></script>

@@ -128,6 +128,7 @@ h2 {
     transition: .5s;
 }
 
+
 .input-group input {
     width: 100%;
     height: 40px;
@@ -137,7 +138,6 @@ h2 {
     background: transparent;
     border: 1px solid #333;
     outline: none;
-    border-radius: 5px;
 }
 
 .input-group input:focus~label,
@@ -149,16 +149,15 @@ h2 {
 }
 
 form .input-group .h-password{
-   
    position: absolute;
    right: 3%;
-   top: 15%;
-   cursor: pointer;
-   
+   top: 20%;
+   cursor: pointer; 
 }
 
+
 .forgot-pass {
-    margin: -15px 0 15px;
+    margin: -7px 0 15px;
 }
 
 .forgot-pass a {
