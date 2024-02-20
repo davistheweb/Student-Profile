@@ -11,11 +11,11 @@ $mail = new PHPMailer();
 
 $mail->isSMTP();
 $mail->SMTPAuth = true;
-$mail->Host = "smtp.example.com"; // Replace with your SMTP server host
+$mail->Host = "smtp.example.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
-$mail->Username = "smartkelvin775@gmail.com"; // Replace with your SMTP username
-$mail->Password = "your-password"; // Replace with your SMTP password
+$mail->Username = "userexample@mail.com"; 
+$mail->Password = "your-password"; 
 $mail->isHTML(true);
 
 return $mail;

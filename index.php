@@ -63,7 +63,7 @@ if ($user = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                             <div class="col-sm-4 bg-c-lite-green user-profile">
                                 <div class="card-block text-center text-white">
                                     <div class="m-b-25">
-                                        <img src="img/user.png" class="img-radius" alt="User-Profile-Image">
+                                        <img src="upload/<?= htmlspecialchars($user["stu_img"]);?>" class="img-radius" alt="User-Profile-Image">
                                     </div>
                                     <h6 class="f-w-600"><?= htmlspecialchars($user["full_name"]);?></h6>
                                     <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
@@ -101,6 +101,7 @@ if ($user = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             </div>
         </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 </body>

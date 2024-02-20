@@ -26,7 +26,7 @@
         <div class="form-wrapper sign-up">
 
             
-            <form action="login&register.php" method="post" id="register">
+            <form action="login&register.php" enctype="multipart/form-data" method="post" id="register">
             <h2>Sign Up</h2>
             <?php
              if (isset($_POST["submit"])) {
@@ -38,12 +38,12 @@
                 $dept = $_POST["dept"];
                 $password = $_POST["password"];
                 $confirmPassword = $_POST["confirm_password"];
+                $stu_img =$_FILES['student-img'];
 
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
                 $errors = array();
-                if (empty($name) OR empty($email) OR empty($field) 
-                OR empty($math) OR empty($fal) OR empty($dept) 
+                if (empty($name)
                 OR empty($password) OR empty($confirmPassword)) {
                     array_push($errors, "Field Cannot Be Empty");
                 }
@@ -70,19 +70,64 @@
 
                 require_once "database.php";
 
-                $sql = "SELECT * FROM students WHERE email = '$email'";
-
-                $result = mysqli_query($conn, $sql);
+                $sql = "SELECT * FROM students WHERE email = ?";
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $sql);
+                mysqli_stmt_bind_param($stmt, "s", $email);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
                 $rowCount = mysqli_num_rows($result);
+
                 if($rowCount>0) {
                     array_push($errors, "Email already exists");
                 }
+
                 if (count($errors)>0) {
                     foreach($errors as $error){
                     echo "<p class='alert alert-danger'>$error</p>";
                    
                 }
                 }
+
+                 if (isset($_FILES["student-img"])) {
+                    
+                    $img_name = $_FILES['student-img']['name'];
+                    // Check Img size
+                    $img_size = $_FILES['student-img']['size'];
+                    $tmp_name = $_FILES['student-img']['tmp_name'];
+                    $error = $_FILES['student-img']['error'];
+
+                    if($error === 0){
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_allowed= strtolower($img_ex);
+
+                        $allowed_img = array('jpg', 'jpeg', 'png');
+
+                        if(in_array($img_allowed, $allowed_img)){
+                            $new_img = uniqid($name, true).'.'.$img_allowed;
+                            $upload_img = 'upload/'.$new_img;
+                            move_uploaded_file($tmp_name, $upload_img);
+
+                            $sql = "INSERT INTO students (full_name, email, field, math, fal, dept, password, stu_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                            $stmt = mysqli_stmt_init($conn);
+                            $prepareState = mysqli_stmt_prepare($stmt, $sql);
+                            if ($prepareState) {
+                                mysqli_stmt_bind_param($stmt, "ssssssss",$name, $email, $field, $math, $fal, $dept, $passwordHash, $new_img);
+                                mysqli_stmt_execute($stmt);
+                                echo "<div class= 'alert alert-success'>Registration successful.</div>";
+                            }
+                        }
+
+
+                        else {
+                                die("Something went wrong");
+                        }
+                    }
+
+
+                
+                }
+                
                 else {
                     //insert data in database
 
@@ -104,40 +149,46 @@
             ?>
                 
                 <div class="input-group">
-                    <input type="text" name="name" required>
+                    <input type="text" name="name" required="required">
                     <label>Name</label>
                 </div>
                 <div class="input-group">
-                    <input type="email"  name="email" autocomplete="off" required>
+                    <input type="email"  name="email" autocomplete="off" required="required">
                     <label>Email</label>
                 </div>
                 <div class="input-group">
-                    <input type="text" name="field" required>
+                    <input type="text" name="field" required="required">
                     <label>Field, Eg:Master deg</label>
                 </div>
                 <div class="input-group">
-                    <input type="text" name="matric" required>
+                    <input type="text" name="matric" required="required">
                     <label>Matric.No</label>
                 </div>
                 <div class="input-group">
-                    <input type="text" name="fal" required>
+                    <input type="text" name="fal" required="required">
                     <label>Falculty</label>
                 </div>
                 <div class="input-group">
-                    <input type="text" name="dept" required>
+                    <input type="text" name="dept" required ="required">
                     <label>Department</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="password" id="password" required>
+                    <input type="password" name="password" id="password" required ="required">
                     <i class="ri-eye-line h-password" id="show-password"></i>
                     <label>Password</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" name="confirm_password" id="confirm-password" required>
+                    <input type="password" name="confirm_password" id="confirm-password" required="required">
                     <i class="ri-eye-line h-password" id="show-confirm-password"></i>
                     <label>Confirm Password</label>
                 </div>
-                
+                <div class="input-group mb-0">
+                    <label class="form-label">Student Img</label>
+                    <input type="file" class="form-control" style="border:0;
+                     background:#12ddee" name="student-img" 
+                     required="required">
+                </div>
+
                 <input type="submit" name="submit" value="Sign Up" class="submit-btn">
                 <div class="sign-link">
                     <p>Already have an account? <a class="signIn-link">Sign In</a></p>
@@ -156,8 +207,12 @@
                 $password = $_POST["password"]; 
 
                 require_once "database.php";
-                $sql = "SELECT * FROM students WHERE email = '$email'";
-                $result = mysqli_query($conn, $sql);
+                $sql = "SELECT * FROM students WHERE email = ?";
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $sql);
+                mysqli_stmt_bind_param($stmt, "s", $email);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
                 $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 if ($user) {
                     if (password_verify($password, $user["password"])) {
@@ -167,12 +222,12 @@
                         header("Location: index.php");
                         die();
                     } else {
-                        echo"<p class='alert alert danger'>Password does not match</p>";
+                        echo"<p class='alert alert-danger'>Password does not match</p>";
                     }
                 }
 
                 else {
-                    echo"<p class='alert alert danger'>Email does not exist</p>";
+                    echo"<p class='alert alert-danger'>Email does not exist</p>";
                 }
 
                 $is_invalid = true;

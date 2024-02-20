@@ -116,6 +116,12 @@ h2 {
     margin: 10px 0;
 }
 
+.input-profile {
+    position: relative;
+    width: 320px;
+    margin: 20px 0;
+}
+
 .input-group label {
     position: absolute;
     top: 50%;
@@ -139,6 +145,7 @@ h2 {
     border: 1px solid #333;
     outline: none;
 }
+
 
 .input-group input:focus~label,
 .input-group input:valid~label,
@@ -185,6 +192,7 @@ form .input-group .h-password{
     border-radius: 5px;
     border: none;
     outline: none;
+    
 }
 
 .sign-link {
