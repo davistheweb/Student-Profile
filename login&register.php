@@ -93,7 +93,7 @@
                     
                     $img_name = $_FILES['student-img']['name'];
                     // Check Img size
-                    $img_size = $_FILES['student-img']['size'];
+                   // $img_size = $_FILES['student-img']['size'];
                     $tmp_name = $_FILES['student-img']['tmp_name'];
                     $error = $_FILES['student-img']['error'];
 

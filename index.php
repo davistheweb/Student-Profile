@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 if (!isset($_SESSION["student"])) {
     header("Location: student.php");
@@ -24,7 +24,7 @@ if ($user = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     // No user found, handle this case
 }
 
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="en">
