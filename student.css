@@ -45,3 +45,23 @@ body {
     font-size: 17px;
     font-family: Poppins;
 }
+
+@media screen and (max-width:920px){
+    .title {
+        font-size: 2rem;
+    }
+}
+@media screen and (max-width:620px){
+    .title {
+        font-size: 1.2rem;
+    }
+}
+@media screen and (max-width:350px){
+    .title {
+        font-size: 1rem;
+    }
+}
+
+.link {
+    font-size: 10px;
+}

@@ -1,4 +1,4 @@
-<!-- <?php
+ <?php
 session_start();
 if (!isset($_SESSION["student"])) {
     header("Location: student.php");
@@ -21,10 +21,10 @@ $result = mysqli_stmt_get_result($stmt);
 if ($user = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     // User data fetched successfully
 } else {
-    // No user found, handle this case
+    die("Error, No profile found");
 }
 
-?> -->
+?>
 
 <!DOCTYPE html>
 <html lang="en">
