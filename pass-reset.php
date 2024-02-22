@@ -32,7 +32,7 @@ if ($mail) {
         $mail->addAddress($email);
         $mail->Subject = "Password Reset"; // Fixed typo in the subject
         $mail->Body = <<<END
-        Click <a href="http://example.com/reset-password.php?token=$token">here</a>
+        Click <a href="http://example.com/reset-pass.php?token=$token">here</a>
         to reset your password.
         END;
 
@@ -45,8 +45,6 @@ if ($mail) {
     } else {
         echo "No affected rows.";
     }
-} else {
-    echo "Error: Mailer object not instantiated properly.";
 }
 
 mysqli_stmt_close($stmt); // Close the statement

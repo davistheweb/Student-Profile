@@ -12,17 +12,14 @@
         <div class="form-wrapper sign-in">
         
             <form action="pass-reset.php" method="post">
-                <h2>We are sorry,<br> Password reset is Unavaliable<br>Reset Password (...Coming Soon)</h2>
+                <h2>Reset Password</h2>
                 <div class="input-group">
                     <input type="email" name="email" id="email" required>
                     <label for="">Email</label>
                 </div>
                 <button>Send</button>
 
-                <div class="forgot-pass" style="margin-top:2px;">
-                    <a href="http://example.com/reset-password.php?token=$token">Click here to Reset</a>
-                </div>
-            </form>
+                </form>
         </div>
     </div>
 </body>

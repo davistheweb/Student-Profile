@@ -1,6 +1,6 @@
 <?php
 
-$token = $_GET["token"];
+$token = $_POST["token"];
 
 $token_hash = hash("sha256", $token);
 
@@ -26,6 +26,37 @@ if($student === null) {
 if (strtotime($student["expire_reset_token"]) <= time()) {
     die("Token expired");
 }
+
+if (strlen($password)<8) {
+    array_push($errors, "Password must be at least, more than 8 characters");
+}
+
+if ( ! preg_match("/[a-z]/i", $password)) {
+    array_push($errors, "Password must contain on letter");
+}
+
+if ( ! preg_match ("/[0-9]/", $password)) {
+    array_push($errors, "Password must contain digits");
+}
+
+if ($password!==$confirmPassword) {
+    array_push($errors,"Your password does not match");
+}
+
+$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+$sql = "UPDATE student 
+        SET password = ?,
+        reset_token = NULL,
+        expiry_reset_token = NULL
+        WHERE id = ?";
+
+$stmt = mysqli_stmt_init($mysqli); // Initialize the prepared statement
+
+mysqli_stmt_prepare($stmt, $sql); // Prepare the statement
+mysqli_stmt_bind_param($stmt, "ss", $password, $student ["id"]); // Bind parameters
+mysqli_stmt_execute($stmt); // Execute the statement
+
 
 ?>
  <!DOCTYPE html>
