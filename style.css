@@ -234,5 +234,7 @@ form .input-group .h-password{
     font-size: 10px;
     background-color: #12ddee;
     border: none;
+
+    z-index: 100;
 }
   

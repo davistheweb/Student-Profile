@@ -186,7 +186,7 @@
                 </div>
                 <div class="input-group mb-0">
                     <label class="form-label">Student Img</label>
-                    <input type="file" class="form-control" style="border:0;
+                    <input type="file" class="file form-control" style="border:0;
                      background:#12ddee" name="student-img" 
                      required="required">
                 </div>

@@ -1,4 +1,4 @@
- <?php
+<?php
 session_start();
 if (!isset($_SESSION["student"])) {
     header("Location: student.php");
@@ -26,84 +26,122 @@ if ($user = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile</title>
-    <link rel="stylesheet" href="index.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-
-<body class="bg-success">
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.php">Student Profile</a>
-    <a href="logout.php" style="text-decoration:none;" class="logout text-light px-3 rounded-4 pb-2 bg-danger">Logout</a>
-</nav>
-
-    
 <?php if (isset($user)): ?>
         <!-- Your HTML content here -->
     <?php else: ?>
         
     <?php endif; ?>
-    <h2 class="welcome-student">Welcome To Student Profile</h2>
-    <div class="page-content page-container" id="page-content">
-        <div class="padding">
-            <div class="row container d-flex justify-content-center">
-                <div class="col-xl-6 col-md-12">
 
-                    <div class="card user-card-full">
-                        <div class="row m-l-0 m-r-0">
-                            <div class="col-sm-4 bg-c-lite-green user-profile">
-                                <div class="card-block text-center text-white">
-                                    <div class="m-b-25">
-                                        <img src="upload/<?= htmlspecialchars($user["stu_img"]);?>" class="img-radius" alt="User-Profile-Image">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="index.css">
+<script src="bootstrap.min.js"></script>
+<script src="jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+    <title>Student Profile</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.php">Student Profile</a>
+    <a href="logout.php" style="text-decoration:none;" class="logout text-light px-3 rounded-4 pb-2 bg-danger">Logout</a>
+</nav>
+<main> 
+<h2 class="welcome-student">Welcome To Student Profile</h2>
+    
+
+<div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                        <img src="upload/<?= htmlspecialchars($user["stu_img"]);?>" class="img-radius" alt="User-Profile-Image">
+                        <div class="profile-head">
+                                    <h5>
+                                        <?= htmlspecialchars($user["full_name"]);?>
+                                    </h5>
+                                    <h6>
+                                        <?= htmlspecialchars($user["dept"]);?> Student
+                                    </h6>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                    </div>
+                </div>
+                <h6 class="information">Information</h6>    
+                <div class="row justify-center">
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?= htmlspecialchars($user["full_name"]);?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?= htmlspecialchars($user["email"]);?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Degree</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?= htmlspecialchars($user["field"]);?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Matric.NO</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?= htmlspecialchars($user["math"]);?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Faculty</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?= htmlspecialchars($user["fal"]);?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Department</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?= htmlspecialchars($user["dept"]);?></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h6 class="f-w-600"><?= htmlspecialchars($user["full_name"]);?></h6>
-                                    <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="card-block">
-                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Degree</p>
-                                            <h6 class="text-muted f-w-400"><?= htmlspecialchars($user["field"]);?></h6>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Matric.NO</p>
-                                            <h6 class="text-muted f-w-400"><?= htmlspecialchars($user["math"]);?></h6>
-                                        </div>
-                                    </div>
-                                    <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Faculty</p>
-                                            <h6 class="text-muted f-w-400"><?= htmlspecialchars($user["fal"]);?></h6>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Department</p>
-                                            <h6 class="text-muted f-w-400"><?= htmlspecialchars($user["dept"]);?></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>           
         </div>
-    </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-</body>
 
+        </main>
+
+        <footer class="build-info">
+            <p class="build-name">&copy <script>document.write(new Date().getFullYear())</script> || Built by <a class="build-link" href="https://X.com/davistheweb" target="_blank">Davistheweb</a></p>
+        </footer>
+</body>
 </html>
