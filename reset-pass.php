@@ -35,7 +35,7 @@ if (strtotime($student["expire_reset_token"]) <= time()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgotten Password</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="wrapper">
