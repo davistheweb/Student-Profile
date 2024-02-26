@@ -18,8 +18,6 @@
     });
 });
 
-
-
 const loginPassword = document.getElementById('login-password');
 const password = document.getElementById('password');
 const confirmPassword = document.getElementById('confirm-password');
@@ -100,16 +98,3 @@ validation
     .onSuccess((event) => {
         document.getElementById("signup").submit();
     });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

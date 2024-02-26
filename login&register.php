@@ -1,6 +1,6 @@
 <?php
     session_start();
-   if (isset($_SESSION["student"]) && isset ($_SESSION['id'])) {
+   if ( isset($_SESSION["student"]) && isset ($_SESSION['id'])) {
     header("Location: index.php");
    }
   
@@ -24,113 +24,180 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+
+   <div class="show-instro" id="show-intro">
+
+   <div class="intro-body">
+    <span id="close-intro">&times;</span>
+
+    <div class="intro-content">
+    <h4 class="intro-title">Welcome To Student Profile.</h4>
+
+    <p class="intro-subtitle">Caution</p>
+    <p class="intro-info">* Password Length Must be Up to, or <br>
+    more than 8 Characters.</p>
+    <p class="intro-info">* Password Must Contain Alphabet.</p>
+    <p class="intro-info">* Password Must Contain Digits.</p>
+
+    </div>
+    
+
+    </div>
+   </div>
+
+   <style>
+    .show-instro {
+        position: absolute;
+       background-color: rgba(0, 0, 0, 0.2);
+        width:100%;
+        height:100%;
+        z-index:1000;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+
+    }
+
+    .intro-body {
+        background-color:#000;
+        padding:2.5%;
+        border-raidus: 10px;
+        
+    }
+
+    .intro-body #close-intro {
+        background-color:#12ddee;
+        padding:.2rem;
+        font-size:20px;
+        color:#fff;
+        cursor:pointer;
+        border-radius:5px;
+        margin-left:auto;
+        diplay:flex;
+        right:1rem;
+        margin-right: 1rem;
+        margin-top: 1rem;
+        align-items: flex-end;
+    }
+
+    .intro-content {
+        paddind-top: 1rem;
+    }
+
+    .intro-subtitle {
+        text-decoration:underline;
+        color:#ff0000;
+    }
+
+    .intro-title,
+    .intro-info 
+    {
+        color: #fff;
+    }
+   </style>
+
     <div class="wrapper">
         <div class="form-wrapper sign-up">
 
             
             <form action="login&register.php" enctype="multipart/form-data" method="post" id="register">
             <h2>Sign Up</h2>
-            <?php
-             if (isset($_POST["submit"])) {
-                $name = $_POST["name"];
-                $email = $_POST["email"];
-                $field = $_POST["field"];
-                $math = $_POST["matric"];
-                $fal = $_POST["fal"];
-                $dept = $_POST["dept"];
-                $password = $_POST["password"];
-                $confirmPassword = $_POST["confirm_password"];
-                $stu_img =$_FILES['student-img'];
+           <?php
+                if (isset($_POST["submit"])) {
+                    $name = $_POST["name"];
+                    $email = $_POST["email"];
+                    $field = $_POST["field"];
+                    $math = $_POST["matric"];
+                    $fal = $_POST["fal"];
+                    $dept = $_POST["dept"];
+                    $password = $_POST["password"];
+                    $confirmPassword = $_POST["confirm_password"];
+                    $stu_img = $_FILES['student-img'];
 
-                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+                    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-                $errors = array();
-                if (empty($name)
-                OR empty($password) OR empty($confirmPassword)) {
-                    array_push($errors, "Field Cannot Be Empty");
-                }
-
-                if (!Filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    array_push($errors,"Email is not valid!");
-                }
-
-                if (strlen($password)<8) {
-                    array_push($errors, "Password must be at least, more than 8 characters");
-                }
-
-                if ( ! preg_match("/[a-z]/i", $password)) {
-                    array_push($errors, "Password must contain on letter");
-                }
-
-                if ( ! preg_match ("/[0-9]/", $password)) {
-                    array_push($errors, "Password must contain digits");
-                }
-
-                if ($password!==$confirmPassword) {
-                    array_push($errors,"Your password does not match");
-                }
-
-                require_once "database.php";
-
-                $sql = "SELECT * FROM students WHERE email = ?";
-                $stmt = mysqli_stmt_init($conn);
-                mysqli_stmt_prepare($stmt, $sql);
-                mysqli_stmt_bind_param($stmt, "s", $email);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                $rowCount = mysqli_num_rows($result);
-
-                if($rowCount>0) {
-                    array_push($errors, "Email already exists");
-                }
-
-                if (count($errors)>0) {
-                    foreach($errors as $error){
-                    echo "<p class='alert alert-danger'>$error</p>";
-                   
-                }
-                }
-
-                 if (isset($_FILES["student-img"])) {
-                    
-                    $img_name = $_FILES['student-img']['name'];
-                    // Check Img size
-                   // $img_size = $_FILES['student-img']['size'];
-                    $tmp_name = $_FILES['student-img']['tmp_name'];
-                    $error = $_FILES['student-img']['error'];
-
-                    if($error === 0){
-                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                        $img_allowed= strtolower($img_ex);
-
-                        $allowed_img = array('jpg', 'jpeg', 'png');
-
-                        if(in_array($img_allowed, $allowed_img)){
-                            $new_img = uniqid($name, true).'.'.$img_allowed;
-                            $upload_img = 'upload/'.$new_img;
-                            move_uploaded_file($tmp_name, $upload_img);
-
-                            $sql = "INSERT INTO students (full_name, email, field, math, fal, dept, password, stu_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                            $stmt = mysqli_stmt_init($conn);
-                            $prepareState = mysqli_stmt_prepare($stmt, $sql);
-                            if ($prepareState) {
-                                mysqli_stmt_bind_param($stmt, "ssssssss",$name, $email, $field, $math, $fal, $dept, $passwordHash, $new_img);
-                                mysqli_stmt_execute($stmt);
-                                echo "<div class= 'alert alert-success'>Registration successful.</div>";
-                            }
-                        }
-
-
-                        else {
-                                die("Something went wrong");
-                        }
+                    $errors = array();
+                    if (empty($name) || empty($password) || empty($confirmPassword)) {
+                        array_push($errors, "Field Cannot Be Empty");
                     }
 
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        array_push($errors, "Email is not valid!");
+                    }
+
+                    if (strlen($password) < 8) {
+                        array_push($errors, "Password must be at least 8 characters long");
+                    }
+
+                    if (!preg_match("/[a-z]/i", $password)) {
+                        array_push($errors, "Password must contain at least one letter");
+                    }
+
+                    if (!preg_match("/[0-9]/", $password)) {
+                        array_push($errors, "Password must contain at least one digit");
+                    }
+
+                    if ($password !== $confirmPassword) {
+                        array_push($errors, "Your password does not match");
+                    }
+
+                    require_once "database.php";
+
+                    $sql = "SELECT * FROM students WHERE email = ?";
+                    $stmt = mysqli_stmt_init($conn);
+                    mysqli_stmt_prepare($stmt, $sql);
+                    mysqli_stmt_bind_param($stmt, "s", $email);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    $rowCount = mysqli_num_rows($result);
+
+                    if ($rowCount > 0) {
+                        array_push($errors, "Email already exists");
+                    }
+
+                    if (count($errors) > 0) {
+                        foreach ($errors as $error) {
+                            echo "<p class='alert alert-danger'>$error</p>";
+                        }
+                    } else {
+                        if (isset($_FILES["student-img"])) {
+                            $img_name = $_FILES['student-img']['name'];
+                            $tmp_name = $_FILES['student-img']['tmp_name'];
+                            $error = $_FILES['student-img']['error'];
+
+                            if ($error === 0) {
+                                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                                $img_allowed = strtolower($img_ex);
+
+                                $allowed_img = array('jpg', 'jpeg', 'png');
+
+                                if (in_array($img_allowed, $allowed_img)) {
+                                    $new_img = uniqid($name, true) . '.' . $img_allowed;
+                                    $upload_img = 'upload/' . $new_img;
+                                    move_uploaded_file($tmp_name, $upload_img);
+
+                                    $sql = "INSERT INTO students (full_name, email, field, math, fal, dept, password, stu_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                                    $stmt = mysqli_stmt_init($conn);
+                                    $prepareState = mysqli_stmt_prepare($stmt, $sql);
+                                    if ($prepareState) {
+                                        mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $field, $math, $fal, $dept, $passwordHash, $new_img);
+                                        mysqli_stmt_execute($stmt);
+                                        echo "<div class='alert alert-success'>Registration successful.</div>";
+                                    }
+                                } else {
+                                    echo "Invalid image file type.";
+                                }
+                            }
+                        } else {
+                            die("Something went wrong");
+                        }
+                    }
+                }
+
 
                 
-                }
-                
-                else {
+                /* else {
                     //insert data in database
 
                     
@@ -146,9 +213,11 @@
                         die("Something Went Wrong");
                     }
 
-                }
-             }
+                } */
+             
             ?>
+
+            
                 
                 <div class="input-group">
                     <input type="text" name="name" required="required">
@@ -263,6 +332,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
     crossorigin="anonymous"></script>
+
+
+    <script>
+           function displayIntro() {
+        const showIntro = document.querySelector('#show-intro');
+        const closeIntro = document.querySelector('#close-intro');
+    
+        showIntro.style.display = 'flex';
+    
+        setTimeout(() => {
+            showIntro.style.display = 'none';
+        }, 5000);
+    
+        closeIntro.addEventListener('click', () => {
+            showIntro.style.display = 'none';
+        });
+    }
+    
+        window.onload = displayIntro;
+    
+    </script>
     
 </body>
 
