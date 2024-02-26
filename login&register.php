@@ -45,58 +45,6 @@
 
     </div>
    </div>
-
-   <style>
-    .show-instro {
-        position: absolute;
-       background-color: rgba(0, 0, 0, 0.2);
-        width:100%;
-        height:100%;
-        z-index:1000;
-        display: flex;
-        justify-content:center;
-        align-items:center;
-
-    }
-
-    .intro-body {
-        background-color:#000;
-        padding:2.5%;
-        border-raidus: 10px;
-        
-    }
-
-    .intro-body #close-intro {
-        background-color:#12ddee;
-        padding:.2rem;
-        font-size:20px;
-        color:#fff;
-        cursor:pointer;
-        border-radius:5px;
-        margin-left:auto;
-        diplay:flex;
-        right:1rem;
-        margin-right: 1rem;
-        margin-top: 1rem;
-        align-items: flex-end;
-    }
-
-    .intro-content {
-        paddind-top: 1rem;
-    }
-
-    .intro-subtitle {
-        text-decoration:underline;
-        color:#ff0000;
-    }
-
-    .intro-title,
-    .intro-info 
-    {
-        color: #fff;
-    }
-   </style>
-
     <div class="wrapper">
         <div class="form-wrapper sign-up">
 
@@ -328,6 +276,61 @@
         </div>
     </div>
 
+    <style>
+        .show-instro {
+        position: absolute;
+       background-color: rgba(0, 0, 0, 0.2);
+        width:100%;
+        height:100%;
+        z-index:1000;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        transition: .3s ease;
+
+    }
+
+    .intro-body {
+        background-color:#000;
+        padding:2.5%;
+        border-radius: 10px;
+        
+    }
+
+    .intro-body #close-intro {
+        background-color:#12ddee;
+        width:1.5rem;
+        height:1.5rem;
+        diplay:flex;
+        font-size:20px;
+        color:#fff;
+        cursor:pointer;
+        border-radius:5px;
+        margin-left:auto;
+        display:inline-block;
+        text-align:center;
+        
+        align-items: flex-end;
+    }
+
+    .intro-content {
+        padding-top: 1rem;
+    }
+
+    .intro-subtitle {
+        text-decoration:underline;
+        color:#ff0000;
+    }
+
+    .intro-title,
+    .intro-info 
+    {
+        color: #fff;
+    }
+
+  
+    </style>
+
     <script src="login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
@@ -343,7 +346,7 @@
     
         setTimeout(() => {
             showIntro.style.display = 'none';
-        }, 5000);
+        }, 5500);
     
         closeIntro.addEventListener('click', () => {
             showIntro.style.display = 'none';
