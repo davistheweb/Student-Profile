@@ -23,9 +23,9 @@ rel="stylesheet">
     <div class="container grid">
         <div class="title">WELCOME TO STUDENT PROFILE</div>
         <div class="links flex">
-            <a href="login&register.php" class="link">Login</a>
+            <a href="loginWithRegister.php" class="link">Login</a>
             <i>OR</i>
-            <a href="login&register.php#register" class="link">Create Account</a>
+            <a href="loginWithRegister.php#register" class="link">Create Account</a>
         </div>
     </div>
 </body>

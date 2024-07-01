@@ -25,7 +25,7 @@
 </head>
 <body>
 
-
+<!-- 
    <div class="show-instro" id="show-intro">
 
    <div class="intro-body">
@@ -44,12 +44,12 @@
     
 
     </div>
-   </div>
+   </div> -->
     <div class="wrapper">
         <div class="form-wrapper sign-up">
 
             
-            <form action="login&register.php" enctype="multipart/form-data" method="post" id="register">
+            <form action="loginWithRegister.php" enctype="multipart/form-data" method="post" id="register">
             <h2>Sign Up</h2>
            <?php
                 if (isset($_POST["submit"])) {
@@ -216,7 +216,7 @@
         </div>
         <div class="form-wrapper sign-in">
         
-            <form action="login&register.php" method="post">
+            <form action="loginWithRegister.php" method="post">
                 <h2>Login</h2>
                 <?php 
             $is_invalid = false;

@@ -10,7 +10,7 @@ if ($mail) {
     $token_hash = hash("sha256", $token);
     $expiry = date("Y-m-d H:i:s", time() + 60 * 10);
 
-    $mysqli = require_once "database.php";
+    $mysqli = require "database.php";
 
     $sql = "UPDATE students
             SET reset_token = ?,
@@ -25,25 +25,75 @@ if ($mail) {
     } else {
         echo "Error: " . mysqli_error($mysqli);
     }
+$Msg = "<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Forgotten Password</title>
+    <link rel='stylesheet' href='css/forgot-pass.css'>
+    <link rel='stylesheet' href = 'css/style.css'>
+</head>
+<body>
+    <div class='wrapper'>
+        <div class='form-wrapper sign-in'>
+            <p>Message Sent, Pls check your mail.</p>
+        </div>
+    </div>
+</body>
+</html>";
 
+
+$CatchErrMsg = "<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Forgotten Password</title>
+    <link rel='stylesheet' href='css/forgot-pass.css'>
+    <link rel='stylesheet' href = 'css/style.css'>
+</head>
+<body>
+    <div class='wrapper'>
+        <div class='form-wrapper sign-in'>
+            <p>Unable to send message. Mailer error:{$mail->ErrorInfo}</p>
+        </div>
+    </div>
+</body>
+</html>";
+ 
+$ErrMsg = "<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Forgotten Password</title>
+    <link rel='stylesheet' href='css/forgot-pass.css'>
+    <link rel='stylesheet' href = 'css/style.css'>
+</head>
+<body>
+    <div class='wrapper'>
+        <div class='form-wrapper sign-in'>
+            <p>Mail not found</p>
+        </div>
+    </div>
+</body>
+</html>";
  
     if ($mysqli->affected_rows) {
-        $mail->setFrom("noreply@example.com");
+        $mail->setFrom("josiahdave001@gmail.com");
         $mail->addAddress($email);
-        $mail->Subject = "Password Reset"; // Fixed typo in the subject
+        $mail->Subject = "Password Reset for student profile"; // Fixed typo in the subject
         $mail->Body = <<<END
-        Click <a href="http://example.com/reset-pass.php?token=$token">here</a>
+        Click <a href="http://localhost/student-profile/reset-pass.php?token=$token">here</a>
         to reset your password.
         END;
 
         try {
             $mail->send();
-            echo "Message sent, Check your mail";
+            echo $Msg;
         } catch (Exception $e) {
-            echo "Unable to send message. Mailer error:{$mail->ErrorInfo}";
+            echo $CatchErrMsg;
         }
     } else {
-        echo "No affected rows.";
+        echo $ErrMsg;
     }
 }
 

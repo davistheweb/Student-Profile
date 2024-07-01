@@ -11,7 +11,7 @@ $sql = "SELECT * FROM student
 
 $stmt = mysqli_stmt_init($mysqli); // Initialize the prepared statement
 
-mysqli_stmt_prepare($stmt, $sql); // Prepare the statement
+mysqli_stmt_prepare($stmt, $sql); // Prepare the statement 
 mysqli_stmt_bind_param($stmt, "s", $token_hash); // Bind parameters
 mysqli_stmt_execute($stmt); // Execute the statement
 
